@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Page</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Feedback Form</h1>
+        <p>We value your feedback. Please share your experience with us.</p>
+    </header>
+
+    <main>
+        <form action="#" method="post">
+
+            <fieldset>
+                <legend>Personal Information</legend>
+
+                <label for="name">Full Name:</label><br>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+                <br><br>
+
+                <label for="email">Email Address:</label><br>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </fieldset>
+
+            <br>
+
+            <fieldset>
+                <legend>Your Feedback</legend>
+
+                <label for="category">Feedback Category:</label><br>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="website">Website Experience</option>
+                    <option value="service">Customer Service</option>
+                    <option value="product">Product Quality</option>
+                    <option value="suggestion">Suggestion</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <br><br>
+
+                <p>How would you rate your experience?</p>
+
+                <input type="radio" id="star1" name="rating" value="1" required>
+                <label for="star1">1 - Poor</label><br>
+
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2">2 - Fair</label><br>
+
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3">3 - Good</label><br>
+
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4">4 - Very Good</label><br>
+
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5">5 - Excellent</label>
+
+                <br><br>
+
+                <label for="message">Your Comments:</label><br>
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    cols="40"
+                    minlength="10"
+                    maxlength="1000"
+                    placeholder="Write your feedback here..."
+                    required
+                ></textarea>
+
+                <br><br>
+
+                <label for="recommend">Would you recommend us?</label><br>
+                <select id="recommend" name="recommend" required>
+                    <option value="">Choose an option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="maybe">Maybe</option>
+                </select>
+
+                <br><br>
+
+                <input type="checkbox" id="contact" name="contact" value="yes">
+                <label for="contact">
+                    You may contact me about my feedback.
+                </label>
+
+                <br><br>
+
+                <button type="submit">Submit Feedback</button>
+                <button type="reset">Clear Form</button>
+
+            </fieldset>
+
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Feedback Form. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
