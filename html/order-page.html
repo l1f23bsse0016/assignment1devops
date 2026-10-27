@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product input {
+            width: 75px;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2563eb;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #2563eb;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 18px;
+            }
+
+            .product {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Place Your Order</h1>
+
+        <form id="orderForm">
+            <h2>Customer Details</h2>
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required
+                   placeholder="Enter your full name">
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required
+                   placeholder="Enter your email">
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required
+                   placeholder="Enter your phone number">
+
+            <label for="address">Delivery Address</label>
+            <textarea id="address" rows="3" required
+                      placeholder="Enter your complete address"></textarea>
+
+            <h2>Choose Products</h2>
+
+            <div class="product">
+                <div class="product-info">
+                    <strong>Product A</strong><br>
+                    <span>Rs. 500</span>
+                </div>
+                <input type="number" id="productA"
+                       min="0" value="0" aria-label="Quantity of Product A">
+            </div>
+
+            <div class="product">
+                <div class="product-info">
+                    <strong>Product B</strong><br>
+                    <span>Rs. 800</span>
+                </div>
+                <input type="number" id="productB"
+                       min="0" value="0" aria-label="Quantity of Product B">
+            </div>
+
+            <div class="product">
+                <div class="product-info">
+                    <strong>Product C</strong><br>
+                    <span>Rs. 1,200</span>
+                </div>
+                <input type="number" id="productC"
+                       min="0" value="0" aria-label="Quantity of Product C">
+            </div>
+
+            <div class="total">
+                Total: Rs. <span id="total">0</span>
+            </div>
+
+            <label for="payment">Payment Method</label>
+            <select id="payment" required>
+                <option value="">Select payment method</option>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+
+            <button type="submit">Place Order</button>
+
+            <p id="message" role="status"></p>
+        </form>
+    </div>
+
+    <script>
+        const prices = {
+            productA: 500,
+            productB: 800,
+            productC: 1200
+        };
+
+        function updateTotal() {
+            let total = 0;
+
+            for (const id in prices) {
+                const input = document.getElementById(id);
+                const quantity = Math.max(
+                    0,
+                    Math.floor(Number(input.value) || 0)
+                );
+
+                total += prices[id] * quantity;
+            }
+
+            document.getElementById("total").textContent =
+                total.toLocaleString("en-PK");
+        }
+
+        Object.keys(prices).forEach(id => {
+            document.getElementById(id).addEventListener(
+                "input",
+                updateTotal
+            );
+        });
+
+        document.getElementById("orderForm").addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
+
+                const total = Object.keys(prices).reduce(
+                    (sum, id) => {
+                        const quantity = Math.max(
+                            0,
+                            Math.floor(
+                                Number(document.getElementById(id).value) || 0
+                            )
+                        );
+
+                        return sum + prices[id] * quantity;
+                    },
+                    0
+                );
+
+                if (total <= 0) {
+                    document.getElementById("message").textContent =
+                        "Please select at least one product.";
+                    return;
+                }
+
+                document.getElementById("message").textContent =
+                    "Order details completed! Total: Rs. " +
+                    total.toLocaleString("en-PK") +
+                    ". Connect a backend to submit your order.";
+            }
+        );
+    </script>
+
+</body>
+</html>
